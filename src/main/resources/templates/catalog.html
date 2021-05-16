@@ -1,0 +1,182 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width">
+    <title>PARTSMAN</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <link href="iconmonstr-tools-3.svg" rel="icon" type="image/svg" />
+</head>
+    <body>
+        <div class="static-block" id="static-block">
+            <header>
+                <div class="header-upper-block">
+                    <div class="header-partsman-phone-wrapper">
+                        <div class="header-partsman-wrapper">
+                            <div class="header-partsman">
+                                PARTSMAN
+                            </div>
+                        </div>
+                        <div class="header-phone-wrapper">
+                            <div class="header-phone phone">
+                                <a style="color:black; text-decoration:none" href="tel:+70000000000">+7-(000)-000-00-00</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="header-info-wrapper">
+                        <div class="header-info">
+                            Ежедневно 9:00 - 18:00 Иркутск, ул. Лермонтова, 86; partsmanirk@gmail.com
+                        </div>
+                    </div>
+                </div>
+                <div class="header-lower-block">
+                    <div class="header-button-active">
+                        <div class="header-button-catalog">
+                            КАТАЛОГ
+                        </div>
+                    </div>
+                    <div class="header-button-nonactive">
+                        <a class="invisible-link-button" href="/info"></a>
+                        <div class="header-button-info">
+                            ИНФОРМАЦИЯ
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <form action="/" method="post" class="searchblock">
+
+                <div class="input-wrapper">
+                    <input class="searchblock-input" type="text" id="query" name="query" onchange="this.form.submit()"
+                           placeholder="Серийный номер, название, часть слова...">
+                </div>
+
+                <div class="searchblock-searchbutton">
+                    <button class="invisible-link-button" id="searchblock-searchbutton-search" onclick="this.form.submit()"></button>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24"><path d="M23.111 20.058l-4.977-4.977c.965-1.52 1.523-3.322 1.523-5.251 0-5.42-4.409-9.83-9.829-9.83-5.42 0-9.828 4.41-9.828 9.83s4.408 9.83 9.829 9.83c1.834 0 3.552-.505 5.022-1.383l5.021 5.021c2.144 2.141 5.384-1.096 3.239-3.24zm-20.064-10.228c0-3.739 3.043-6.782 6.782-6.782s6.782 3.042 6.782 6.782-3.043 6.782-6.782 6.782-6.782-3.043-6.782-6.782zm2.01-1.764c1.984-4.599 8.664-4.066 9.922.749-2.534-2.974-6.993-3.294-9.922-.749z"/></svg>
+                </div>
+
+                <div class="select-type-wrapper">
+                    <select id="type" name="type">
+                        <option value="Запчасти">Запчасти</option>
+                        <option value="Комплекты">Комплекты</option>
+                        <option value="Жидкости">Жидкости</option>
+                        <option value="Инструмент">Инструмент</option>
+                    </select>
+                </div>
+                <div class="select-category-wrapper">
+                    <select id="category" name="category" onchange="this.form.submit()"></select>
+                    <div id="select-parts-options" style="visibility:hidden">
+                        <option th:each="el : ${partsOptions}" th:value="${el}" th:text="${el}"></option>
+                    </div>
+                    <div id="select-sets-options" style="visibility:hidden">
+                        <option th:each="el : ${setsOptions}" th:value="${el}" th:text="${el}"></option>
+                    </div>
+                    <div id="select-tools-options" style="visibility:hidden">
+                        <option th:each="el : ${toolsOptions}" th:value="${el}" th:text="${el}"></option>
+                    </div>
+                    <div id="select-liquids-options" style="visibility:hidden">
+                        <option th:each="el : ${liquidsOptions}" th:value="${el}" th:text="${el}"></option>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+
+        <div class="cart">
+            <a class="invisible-link-button" href="/cart"></a>
+            <div class="cart-counter">
+                0
+            </div>
+            <div class="cart-svg-wrapper">
+                <svg xmlns="http://www.w3.org/2000/svg" width="50%" height="50%" viewBox="0 0 24 24"><path d="M16.53 7l-.564 2h-15.127l-.839-2h16.53zm-14.013 6h12.319l.564-2h-13.722l.839 2zm5.983 5c-.828 0-1.5.672-1.5 1.5 0 .829.672 1.5 1.5 1.5s1.5-.671 1.5-1.5c0-.828-.672-1.5-1.5-1.5zm11.305-15l-3.432 12h-13.017l.839 2h13.659l3.474-12h1.929l.743-2h-4.195zm-6.305 15c-.828 0-1.5.671-1.5 1.5s.672 1.5 1.5 1.5 1.5-.671 1.5-1.5c0-.828-.672-1.5-1.5-1.5z"/></svg>
+            </div>
+        </div>
+
+        <div class="item-preview" id="item-preview">
+        </div>
+
+
+        <div class="content-block" id="content-block">
+            <div class="items">
+
+                <!-- ITEM START [ [0]snum, [1]title, [2]qtty, [3]price, [4]descr] -->
+                <div th:each="el : ${items}" class="item" th:id="${el[0]}">
+                    <div class="item-description" style="visibility:hidden;height:0;width:0;" th:text="${el[4]}"></div>
+                    <div class="item-picture-wrapper">
+                        <img class="item-image" src="https://st4.depositphotos.com/14953852/24787/v/600/depositphotos_247872612-stock-illustration-no-image-available-icon-vector.jpg">
+                        <button class="item-picture-view" th:onclick="itemPictureView([[${el[0]}]]);">
+                            ПРОСМОТР
+                        </button>
+                        <div class="item-picture-addtocart">Добавить в корзину<button class="invisible-link-button" th:onclick="addToCart([[${el[0]}]])"></button></div>
+                        <div class="item-picture-button-block">
+                            <button class="item-picture-button-block-minus" th:onclick="itemMinus([[${el[0]}]])">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="9" height="9" viewBox="0 0 9 9" icon="minus"><path d="M9 4v1H0V4z"></path></svg>
+                            </button>
+                            <input class="item-picture-button-block-input" value="0">
+                            <button class="item-picture-button-block-plus" th:onclick="itemPlus([[${el[0]}]])">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="9" height="9" viewBox="0 0 9 9" icon="plus"><path d="M9 4H5V0H4v4H0v1h4v4h1V5h4z"></path></svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="item-info-wrapper">
+                        <div class="item-info-upper">
+                            <div class="item-info-upper-title" th:text="${el[1]}"></div>
+                            <div class="item-info-upper-price" th:text="'₽'+${el[3]}"></div>
+                        </div>
+                        <div class="item-info-lower">
+                            <div class="item-info-lower-qtty" th:text="'Наличие: '+${el[2]}"></div>
+                            <div class="item-info-lower-id" th:text="${el[0]}"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ITEM END -->
+
+
+            </div>
+        </div>
+
+        <center>
+            <div class="go-on-top">
+                <a href="#">ᐃ Наверх ᐃ</a>
+            </div>
+        </center>
+
+        <footer>
+            <div class="footer-upper">
+                <div class="footer-upper-general">
+                    <div class="footer-upper-general-partsman">
+                        PARTSMAN
+                    </div>
+                    <div class="footer-upper-general-info">
+                        <p>Ежедневно 9:00 - 18:00</p>
+                        <p>Иркутск, ул. Лермонтова, 86;</p>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="3vh" height="3vh" viewBox="0 0 24 24"><path d="M12 12.713l-11.985-9.713h23.971l-11.986 9.713zm-5.425-1.822l-6.575-5.329v12.501l6.575-7.172zm10.85 0l6.575 7.172v-12.501l-6.575 5.329zm-1.557 1.261l-3.868 3.135-3.868-3.135-8.11 8.848h23.956l-8.11-8.848z"/></svg>
+                        <p><b>partsmanirk@gmail.com</b></p>
+                    </div>
+                </div>
+                <div class="footer-upper-goto">
+                    <p>Перейти к:</p></br>
+                    <p><a href="info">Информация о нас</a></p></br>
+                    <p><a href="cart">Ваша корзина</a></p>
+                </div>
+                <div class="footer-upper-phone">
+                    <div class="footer-upper-phone-icon"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24"><path d="M18.48 22.926l-1.193.658c-6.979 3.621-19.082-17.494-12.279-21.484l1.145-.637 3.714 6.467-1.139.632c-2.067 1.245 2.76 9.707 4.879 8.545l1.162-.642 3.711 6.461zm-9.808-22.926l-1.68.975 3.714 6.466 1.681-.975-3.715-6.466zm8.613 14.997l-1.68.975 3.714 6.467 1.681-.975-3.715-6.467z"/></svg>
+                    </div>
+                    <div class="phone">
+                        <a style="color:black; text-decoration:none" href="tel:+70000000000">+7-(000)-000-00-00</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-lower">
+                <p>Интернет магазин запчастей и других товаров для ремонта и обслуживания строительной техники</p>
+                <p>ООО “PARTSMAN” 1921-2021</p>
+            </div>
+        </footer>
+
+
+        <script src="script_index.js"></script>
+        <script src="script_cart_items.js"></script>
+
+    </body>
+</html>

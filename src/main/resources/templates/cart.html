@@ -1,0 +1,190 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width">
+    <title>PARTSMAN</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <link href="iconmonstr-tools-3.svg" rel="icon" type="image/svg" />
+</head>
+    <body>
+    <form id="page-form" action="/cart" method="post">
+        <div class="static-block-lesser" id="static-block">
+            <header>
+                <div class="header-upper-block">
+                    <div class="header-partsman-phone-wrapper">
+                        <div class="header-partsman-wrapper">
+                            <div class="header-partsman">
+                                PARTSMAN
+                            </div>
+                        </div>
+                        <div class="header-phone-wrapper">
+                            <div class="header-phone phone">
+                                <a style="color:black; text-decoration:none" href="tel:+70000000000">+7-(000)-000-00-00</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="header-info-wrapper">
+                        <div class="header-info">
+                            Ежедневно 9:00 - 18:00 Иркутск, ул. Лермонтова, 86; partsmanirk@gmail.com
+                        </div>
+                    </div>
+                </div>
+                <div class="header-lower-block">
+                    <div class="header-button-nonactive">
+                        <a class="invisible-link-button" href="/"></a>
+                        <div class="header-button-catalog">
+                            КАТАЛОГ
+                        </div>
+                    </div>
+                    <div class="header-button-nonactive">
+                        <a class="invisible-link-button" href="/info"></a>
+                        <div class="header-button-info">
+                            ИНФОРМАЦИЯ
+                        </div>
+                    </div>
+                </div>
+            </header>
+        </div>
+
+        <div id="modal-request">
+            <div id="modal-request-text">
+                Ваша заявка будет отправлена
+            </div>
+            <div id="modal-request-buttons">
+                <button id="modal-request-button-ok" onclick="initCartRequest();">
+                    ОК
+                </button>
+                <button type="button" id="modal-request-button-cancel" onclick="closeCartRequest()">
+                    Отмена
+                </button>
+                <div id="modal-request-buttons-warning">Корзина будет очищена</div>
+            </div>
+        </div>
+
+        <div class="cart-content" id="cart-content">
+            <div class="cart-content-left">
+                <div class="cart-content-left-title">
+                    ВАША КОРЗИНА:
+                </div>
+                <div class="cart-content-left-column">
+
+                    <!-- ITEMS HERE -->
+
+                </div>
+            </div>
+            <div class="cart-content-right">
+                <div class="bill">
+                    <div class="top">
+                        В корзине нет товаров
+                    </div>
+                    <div class="middle">
+                        <div class="middle-upper">
+                            <div class="middle-upper-field">
+                                <div class="middle-upper-field-wrapper">
+                                    <div class="middle-upper-field-title">
+                                        Фамилия
+                                    </div>
+                                    <input class="middle-upper-field-input" name="lastname" type="text" id="cart-input-lastname">
+                                </div>
+                                <div class="middle-upper-field-wrapper">
+                                    <div class="middle-upper-field-title">
+                                        Имя
+                                    </div>
+                                    <input class="middle-upper-field-input" name="firstname" type="text" id="cart-input-firstname">
+                                </div>
+                                <div class="middle-upper-field-wrapper">
+                                    <div class="middle-upper-field-title">
+                                        Отчество
+                                    </div>
+                                    <input class="middle-upper-field-input" name="middlename" type="text" id="cart-input-middlename">
+                                </div>
+                                <div class="middle-upper-field-wrapper">
+                                    <div class="middle-upper-field-title">
+                                        Телефон
+                                    </div>
+                                    <input class="middle-upper-field-input" name="phone" type="text" id="cart-input-phone">
+                                    <div class="middle-upper-field-sign">
+                                        Вам придёт SMS-код с номером заявки
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="middle-lower">
+                            <div class="middle-lower-delivery">
+
+                                <input type="radio" class="middle-lower-delivery-option" id="delivery" name="delivery" value="delivery">
+                                <label for="delivery">Доставка </label>
+
+                                <input type="radio" class="middle-lower-delivery-option" id="pickup" name="delivery" value="pickup">
+                                <label for="delivery">Самовывоз</label>
+
+                            </div>
+                            <div class="middle-lower-agreement">
+                                <input type="radio" class="middle-lower-agreement-option" id="agreement" name="agreement" value="agreement">
+                                <label for="agreement">Я согласен на обработку персональных данных</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bottom">
+                        <button type="button" id="cart-send-request" class="invisible-link-button" onclick="cartSendRequest()"></button>
+                        ОСТАВИТЬ ЗАЯВКУ
+                        <div class="bottom-sign">после подтверждения заказа вам позвонит наш сотрудник</div>
+                        <div class="bottom-sign-phone"><svg xmlns="http://www.w3.org/2000/svg" width="80%" height="80%" viewBox="0 0 24 24">
+                            <path
+                                    d="M18.48 22.926l-1.193.658c-6.979 3.621-19.082-17.494-12.279-21.484l1.145-.637 3.714 6.467-1.139.632c-2.067 1.245 2.76 9.707 4.879 8.545l1.162-.642 3.711 6.461zm-9.808-22.926l-1.68.975 3.714 6.466 1.681-.975-3.715-6.466zm8.613 14.997l-1.68.975 3.714 6.467 1.681-.975-3.715-6.467z"
+                            /></svg></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <center>
+            <div class="go-on-top">
+                <a href="#">ᐃ Наверх ᐃ</a>
+            </div>
+        </center>
+
+        <footer>
+            <div class="footer-upper">
+                <div class="footer-upper-general">
+                    <div class="footer-upper-general-partsman">
+                        PARTSMAN
+                    </div>
+                    <div class="footer-upper-general-info">
+                        <p>Ежедневно 9:00 - 18:00</p>
+                        <p>Иркутск, ул. Лермонтова, 86;</p>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="3vh" height="3vh" viewBox="0 0 24 24"><path d="M12 12.713l-11.985-9.713h23.971l-11.986 9.713zm-5.425-1.822l-6.575-5.329v12.501l6.575-7.172zm10.85 0l6.575 7.172v-12.501l-6.575 5.329zm-1.557 1.261l-3.868 3.135-3.868-3.135-8.11 8.848h23.956l-8.11-8.848z"/></svg>
+                        <p><b>partsmanirk@gmail.com</b></p>
+                    </div>
+                </div>
+                <div class="footer-upper-goto">
+                    <p>Перейти к:</p></br>
+                    <p><a href="info">Информация о нас</a></p></br>
+                    <p><a href="cart">Ваша корзина</a></p>
+                </div>
+                <div class="footer-upper-phone">
+                    <div class="footer-upper-phone-icon"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24">
+                        <path
+                                d="M18.48 22.926l-1.193.658c-6.979 3.621-19.082-17.494-12.279-21.484l1.145-.637 3.714 6.467-1.139.632c-2.067 1.245 2.76 9.707 4.879 8.545l1.162-.642 3.711 6.461zm-9.808-22.926l-1.68.975 3.714 6.466 1.681-.975-3.715-6.466zm8.613 14.997l-1.68.975 3.714 6.467 1.681-.975-3.715-6.467z"
+                        /></svg>
+                    </div>
+                    <div>
+                        +7-(000)-000-00-00
+                    </div>
+                </div>
+            </div>
+            <div class="footer-lower">
+                <p>Интернет магазин запчастей и других товаров для ремонта и обслуживания строительной техники</p>
+                <p>ООО “PARTSMAN” 1921-2021</p>
+            </div>
+        </footer>
+
+
+        <script src="script_cart.js"></script>
+        <script src="script_cart_items.js"></script>
+        <script src="update_cart.js"></script>
+
+    </form>
+    </body>
+</html>
