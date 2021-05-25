@@ -75,7 +75,7 @@ function updateVisibleCart(){
 	readCartFromCookie();
 	var newHTML = "";
 	for (i = 0; i < cart.length; i++){
-		newHTML += '<div class="cart-item" id="'+ cart[i][0] +'"><input type="text" name="serial" style="visibility:hidden;position:absolute;" value="'+cart[i][0]+'"><input name="price" type="text" style="visibility:hidden;position:absolute;" value="'+cart[i][1]+'"><input name="name" type="text" style="visibility:hidden;position:absolute;" value="'+cart[i][2]+'"><input name="qtty" type="text" style="visibility:hidden;position:absolute;" value="'+cart[i][3]+'"><div class="cart-item-content"><img class="cart-item-content-picture" src="https://carnovato.ru/wp-content/uploads/2014/06/kolenval-kolenchatyj-val-dvigatel-ustrojstvo-1.jpg"/><div class="cart-item-content-info"><div class="cart-item-content-info-upper"><p>'+ cart[i][0] +' - '+ cart[i][2] +'</p></div><div class="cart-item-content-info-lower"><div class="cart-item-content-info-lower-text">' + cart[i][1] +'</div></div></div></div><div class="cart-item-button-wrapper"><div class="cart-item-picture-button-block"><button class="item-picture-button-block-minus" onclick="cartMinus('+ "'" + cart[i][0] + "'" +')"><svg xmlns="http://www.w3.org/2000/svg" width="9" height="9" viewBox="0 0 9 9" icon="minus"><path d="M9 4v1H0V4z"></path></svg></button><input class="item-picture-button-block-input" value="'+ cart[i][3] +'"><button class="item-picture-button-block-plus" onclick="cartPlus('+ "'" + cart[i][0] + "'" +')"><svg xmlns="http://www.w3.org/2000/svg" width="9" height="9" viewBox="0 0 9 9" icon="plus"><path d="M9 4H5V0H4v4H0v1h4v4h1V5h4z"></path></svg></button></div></div></div>';
+		newHTML += '<div class="cart-item" id="'+ cart[i][0] +'"><div class="cart-item-delete" onclick="cartItemDelete(\''+ cart[i][0] +'\')">УДАЛИТЬ</div><input type="text" name="serial" style="visibility:hidden;position:absolute;" value="'+cart[i][0]+'"><input name="price" type="text" style="visibility:hidden;position:absolute;" value="'+cart[i][1]+'"><input name="name" type="text" style="visibility:hidden;position:absolute;" value="'+cart[i][2]+'"><input name="qtty" type="text" style="visibility:hidden;position:absolute;" value="'+cart[i][3]+'"><div class="cart-item-content"><img class="cart-item-content-picture" src="https://carnovato.ru/wp-content/uploads/2014/06/kolenval-kolenchatyj-val-dvigatel-ustrojstvo-1.jpg"/><div class="cart-item-content-info"><div class="cart-item-content-info-upper"><p>'+ cart[i][0] +' - '+ cart[i][2] +'</p></div><div class="cart-item-content-info-lower"><div class="cart-item-content-info-lower-text">' + cart[i][1] +'</div></div></div></div><div class="cart-item-button-wrapper"><div class="cart-item-picture-button-block"><button class="item-picture-button-block-minus" onclick="cartMinus('+ "'" + cart[i][0] + "'" +')"><svg xmlns="http://www.w3.org/2000/svg" width="9" height="9" viewBox="0 0 9 9" icon="minus"><path d="M9 4v1H0V4z"></path></svg></button><input class="item-picture-button-block-input" value="'+ cart[i][3] +'"><button class="item-picture-button-block-plus" onclick="cartPlus('+ "'" + cart[i][0] + "'" +')"><svg xmlns="http://www.w3.org/2000/svg" width="9" height="9" viewBox="0 0 9 9" icon="plus"><path d="M9 4H5V0H4v4H0v1h4v4h1V5h4z"></path></svg></button></div></div></div>';
 	}
 	document.getElementsByClassName("cart-content-left-column")[0].innerHTML = newHTML;
 	setZeroesRed();
@@ -88,9 +88,11 @@ function setZeroesRed(){
 	for (var i = 0; i < elements.length; i++){
 		if (elements[i].getElementsByClassName("item-picture-button-block-input")[0].value == "0"){
 			elements[i].getElementsByClassName("cart-item-content")[0].style = "opacity: 0.3;";
-			elements[i].style = "background: rgba(255,255,255,0.3); border: 1px solid rgba(0,0,0,0.3);";	
+			elements[i].style = "background: rgba(255,255,255,0.3); border: 1px solid rgba(0,0,0,0.3);";
+			elements[i].getElementsByClassName("cart-item-delete")[0].style.visibility = "visible";
 		}else{
 			elements[i].style = "background: white;";
+			elements[i].getElementsByClassName("cart-item-delete")[0].style.visibility = "hidden";
 		}
 	}
 }
@@ -321,7 +323,7 @@ try{
 
 
 function setButtonColor(){
-	if (
+	/*if (
 		!(document.getElementById("cart-input-lastname").value.length < 1 ||
 		document.getElementById("cart-input-firstname").value.length < 1 ||
 		document.getElementById("cart-input-middlename").value.length < 1 ||
@@ -329,8 +331,8 @@ function setButtonColor(){
 		(
 			document.getElementById("delivery").checked == false &&
 		    document.getElementById("pickup").checked == false
-		) || 
-		document.getElementById("agreement").checked == false || 
+		) ||
+		document.getElementById("agreement").checked == false ||
 		!checkCartNotEmpty())
 	){
 		document.getElementsByClassName("bottom")[0].style = "background:#82DB8A";
@@ -340,7 +342,43 @@ function setButtonColor(){
 		document.getElementsByClassName("bottom")[0].style = "background:grey";
 		document.getElementById("cart-send-request").disabled = true;
 		document.getElementById("modal-request-button-ok").disabled = true;
-	}
+	}*/
+	if (!document.getElementById("cart-input-lastname").value.length < 1) document.getElementById("cart-input-lastname").style = "border:1px solid black";
+    	if (!document.getElementById("cart-input-firstname").value.length < 1) document.getElementById("cart-input-firstname").style = "border:1px solid black";
+    	if (!document.getElementById("cart-input-middlename").value.length < 1) document.getElementById("cart-input-middlename").style = "border:1px solid black";
+    	if (!document.getElementById("cart-input-phone").value.length < 6) document.getElementById("cart-input-phone").style = "border:1px solid black";
+    	if (! (document.getElementById("delivery").checked == false && document.getElementById("pickup").checked == false)) {
+    		document.getElementById("delivery").style = "outline: none";
+    		document.getElementById("pickup").style = "outline: none";
+    	}
+    	if (!document.getElementById("agreement").checked == false) document.getElementById("agreement").style = "outline: none";
+    	if (
+    		!(document.getElementById("cart-input-lastname").value.length < 1 ||
+    		document.getElementById("cart-input-firstname").value.length < 1 ||
+    		document.getElementById("cart-input-middlename").value.length < 1 ||
+    		document.getElementById("cart-input-phone").value.length < 6 ||
+    		(
+    			document.getElementById("delivery").checked == false &&
+    		    document.getElementById("pickup").checked == false
+    		) ||
+    		document.getElementById("agreement").checked == false ||
+    		!checkCartNotEmpty())
+    	){
+    		document.getElementsByClassName("bottom")[0].style = "background:#82DB8A";
+    	} else {
+    		document.getElementsByClassName("bottom")[0].style = "background:grey";
+
+    		if (document.getElementById("cart-input-lastname").value.length < 1) document.getElementById("cart-input-lastname").style = "border:2px solid red";
+    		if (document.getElementById("cart-input-firstname").value.length < 1) document.getElementById("cart-input-firstname").style = "border:2px solid red";
+    		if (document.getElementById("cart-input-middlename").value.length < 1) document.getElementById("cart-input-middlename").style = "border:2px solid red";
+    		if (document.getElementById("cart-input-phone").value.length < 6) document.getElementById("cart-input-phone").style = "border:2px solid red";
+    		if (document.getElementById("delivery").checked == false && document.getElementById("pickup").checked == false) {
+    			document.getElementById("delivery").style = "outline:2px solid red";
+    			document.getElementById("pickup").style = "outline:2px solid red";
+    		}
+    		if (document.getElementById("agreement").checked == false) document.getElementById("agreement").style = "outline:2px solid red";
+
+    	}
 }
 
 function checkForm(){
@@ -352,7 +390,7 @@ function checkForm(){
 		(
 			document.getElementById("delivery").checked == false &&
 		    document.getElementById("pickup").checked == false
-		) || 
+		) ||
 		document.getElementById("agreement").checked == false
 	){
 		return false;
@@ -383,4 +421,20 @@ function cartSendRequest(){
 
 function closeCartRequest(){
 	document.getElementById("modal-request").style.visibility = "hidden";
+}
+
+function cartItemDelete(serial){
+	removeItemFromCart(serial);
+	updateVisibleCart();
+}
+
+function removeItemFromCart(serial){
+	readCartFromCookie();
+	for (var i = 0; i < cart.length; i++){
+		if (cart[i][0] == serial){
+			cart.splice(i, 1);
+			break;
+		}
+	}
+	writeCartToCookie();
 }

@@ -958,6 +958,7 @@ select{
 	flex-direction: column;
 }
 .cart-item{
+	position: relative;
 	margin-top: 1%;
 	margin-bottom: 1%;
 	background: white;
@@ -971,6 +972,17 @@ select{
 	justify-content: space-between;
 	box-sizing: border-box;
 	padding: 1vh;
+}
+.cart-item-delete{
+	position: absolute;
+	z-index: 1;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	height: 100%;
+	width: 60%;
+	visibility: hidden;
+	font-size: 2vw;
 }
 .cart-item-content{
 	height:10vh;
