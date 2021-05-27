@@ -365,8 +365,12 @@ function setButtonColor(){
     		!checkCartNotEmpty())
     	){
     		document.getElementsByClassName("bottom")[0].style = "background:#82DB8A";
+    		document.getElementById("cart-send-request").disabled = false;
+            document.getElementById("modal-request-button-ok").disabled = false;
     	} else {
     		document.getElementsByClassName("bottom")[0].style = "background:grey";
+            document.getElementById("cart-send-request").disabled = true;
+            document.getElementById("modal-request-button-ok").disabled = true;
 
     		if (document.getElementById("cart-input-lastname").value.length < 1) document.getElementById("cart-input-lastname").style = "border:2px solid red";
     		if (document.getElementById("cart-input-firstname").value.length < 1) document.getElementById("cart-input-firstname").style = "border:2px solid red";
